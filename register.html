@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>إنشاء حساب جديد - خدمة الشهيدة اجنس</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Cairo Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center px-4 py-8">
+
+  <!-- Register Card -->
+  <main class="w-full max-w-md">
+
+    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
+
+      <!-- Logo / Service Title -->
+      <div class="text-center mb-8">
+
+        <div class="flex justify-center mb-4">
+          <img
+            src="/static/cover.png"
+            alt="شعار خدمة الشهيدة اجنس"
+            class="w-28 h-28 object-contain"
+          >
+        </div>
+
+        <h1 class="text-2xl md:text-3xl font-extrabold text-red-600">
+          خدمة الشهيدة اجنس
+        </h1>
+
+        <p class="text-gray-500 mt-2">
+          إنشاء حساب جديد
+        </p>
+
+      </div>
+
+
+      <!-- Register Form -->
+      <form id="registerForm" class="space-y-5">
+
+        <!-- Full Name -->
+        <div>
+
+          <label
+            for="name"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            الاسم بالكامل
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="أدخل الاسم بالكامل"
+            autocomplete="name"
+            required
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+          >
+
+        </div>
+
+
+        <!-- Phone -->
+        <div>
+
+          <label
+            for="phone"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            رقم الموبايل
+          </label>
+
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="أدخل رقم الموبايل"
+            autocomplete="tel"
+            inputmode="tel"
+            required
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+          >
+
+        </div>
+
+
+        <!-- PIN -->
+        <div>
+
+          <label
+            for="pin"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+          >
+            الرقم السري (PIN)
+          </label>
+
+          <input
+            type="password"
+            id="pin"
+            name="pin"
+            placeholder="أدخل الرقم السري"
+            autocomplete="new-password"
+            inputmode="numeric"
+            required
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+          >
+
+        </div>
+
+
+        <!-- Error Message -->
+        <div
+          id="errorMessage"
+          class="hidden bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm text-center"
+        >
+        </div>
+
+
+        <!-- Register Button -->
+        <button
+          id="registerButton"
+          type="submit"
+          class="w-full bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl px-6 py-3 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          إنشاء حساب
+        </button>
+
+      </form>
+
+
+      <!-- Login Link -->
+      <div class="text-center mt-6 text-sm text-gray-600">
+
+        <span>
+          لديك حساب بالفعل؟
+        </span>
+
+        <a
+          href="/"
+          class="text-red-600 font-bold hover:text-red-700 hover:underline"
+        >
+          تسجيل الدخول
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- JavaScript -->
+  <script>
+
+    // =========================
+    // Elements
+    // =========================
+
+    const registerForm =
+      document.getElementById("registerForm");
+
+    const nameInput =
+      document.getElementById("name");
+
+    const phoneInput =
+      document.getElementById("phone");
+
+    const pinInput =
+      document.getElementById("pin");
+
+    const registerButton =
+      document.getElementById("registerButton");
+
+    const errorMessage =
+      document.getElementById("errorMessage");
+
+
+    // =========================
+    // Register
+    // =========================
+
+    registerForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        // Hide previous error
+        errorMessage.classList.add(
+          "hidden"
+        );
+
+        errorMessage.textContent = "";
+
+
+        // Get values
+        const name =
+          nameInput.value.trim();
+
+        const phone =
+          phoneInput.value.trim();
+
+        const pin =
+          pinInput.value.trim();
+
+
+        // Basic validation
+        if (!name || !phone || !pin) {
+
+          showError(
+            "من فضلك أكمل جميع البيانات."
+          );
+
+          return;
+
+        }
+
+
+        try {
+
+          // Disable button
+          registerButton.disabled = true;
+
+          registerButton.textContent =
+            "جاري إنشاء الحساب...";
+
+
+          // Send Register Request
+          const response =
+            await fetch(
+              "/api/register",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  name: name,
+                  phone: phone,
+                  pin: pin
+                })
+              }
+            );
+
+
+          // Parse Server Response
+          const data =
+            await response.json();
+
+
+          // =========================
+          // Registration Failed
+          // =========================
+
+          if (!response.ok) {
+
+            showError(
+              data.message ||
+              "حدث خطأ أثناء إنشاء الحساب."
+            );
+
+            return;
+
+          }
+
+
+          // =========================
+          // Registration Successful
+          // =========================
+
+          if (response.status === 200) {
+
+            alert(
+              data.message ||
+              "تم إنشاء الحساب بنجاح."
+            );
+
+
+            // Redirect to Login
+            window.location.href = "/";
+
+          }
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          showError(
+            "حدث خطأ أثناء الاتصال بالسيرفر. حاول مرة أخرى."
+          );
+
+
+        } finally {
+
+          // Enable button again
+          registerButton.disabled = false;
+
+          registerButton.textContent =
+            "إنشاء حساب";
+
+        }
+
+      }
+    );
+
+
+    // =========================
+    // Show Error
+    // =========================
+
+    function showError(message) {
+
+      errorMessage.textContent =
+        message;
+
+      errorMessage.classList.remove(
+        "hidden"
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>

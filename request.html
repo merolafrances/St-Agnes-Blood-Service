@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>طلب متبرع بالدم</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Cairo Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-red-600 text-white shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold">
+                    خدمة الشهيدة أجنس
+                </h1>
+
+                <p class="text-red-100 text-sm mt-1">
+                    طلب متبرع بالدم
+                </p>
+            </div>
+            <div class="flex justify-center mb-4">
+              <img src="/static/cover.png" alt="شعار خدمة الشهيدة اجنس" class="w-28 h-28 object-contain">
+            </div>
+
+            <a
+                href="/login"
+                class="bg-white text-red-600 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-red-50 transition"
+            >
+                🔒 بوابة الخدام
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main class="max-w-2xl mx-auto px-4 py-8">
+
+        <!-- Intro Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                طلب متبرع بالدم
+            </h2>
+
+            <p class="text-gray-600 text-sm leading-7">
+                من فضلك قم بتسجيل بيانات الحالة المطلوبة، وسيقوم فريق الخدمة
+                بالبحث عن متبرع مناسب والتواصل معه.
+            </p>
+
+        </div>
+
+
+        <!-- Form Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6">
+
+            <form id="requestForm" class="space-y-5">
+
+                <!-- Patient Name -->
+                <div>
+                    <label
+                        for="patient_name"
+                        class="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                        اسم المريض
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patient_name"
+                        name="patient_name"
+                        required
+                        placeholder="اكتب اسم المريض"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    >
+                </div>
+
+
+                <!-- Hospital -->
+                <div>
+                    <label
+                        for="hospital"
+                        class="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                        المستشفى
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hospital"
+                        name="hospital"
+                        required
+                        placeholder="اسم المستشفى"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    >
+                </div>
+
+
+                <!-- Companion Phone -->
+                <div>
+                    <label
+                        for="companion_phone"
+                        class="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                        رقم هاتف المرافق
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companion_phone"
+                        name="companion_phone"
+                        required
+                        placeholder="رقم الهاتف"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    >
+                </div>
+
+
+                <!-- Patient Age -->
+                <div>
+                    <label
+                        for="patient_age"
+                        class="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                        عمر المريض
+                    </label>
+
+                    <input
+                        type="number"
+                        id="patient_age"
+                        name="patient_age"
+                        min="0"
+                        max="120"
+                        required
+                        placeholder="عمر المريض"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    >
+                </div>
+
+
+                <!-- Blood Type -->
+                <div>
+                    <label
+                        for="blood_type"
+                        class="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                        فصيلة الدم المطلوبة
+                    </label>
+
+                    <select
+                        id="blood_type"
+                        name="blood_type"
+                        required
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    >
+                        <option value="">اختر فصيلة الدم</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+
+
+                <!-- Notes -->
+                <div>
+                    <label
+                        for="notes"
+                        class="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                        ملاحظات
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        name="notes"
+                        rows="4"
+                        placeholder="أي تفاصيل أو ملاحظات إضافية عن الحالة..."
+                        class="w-full border border-gray-300 rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    ></textarea>
+                </div>
+
+
+                <!-- Success Message -->
+                <div
+                    id="successMessage"
+                    class="hidden bg-green-50 border border-green-200 text-green-700 rounded-xl p-4 text-sm"
+                >
+                    تم إرسال طلب الدم بنجاح، وسيقوم فريق الخدمة بمتابعة الحالة والتواصل عند توفر متبرع.
+                </div>
+
+
+                <!-- Error Message -->
+                <div
+                    id="errorMessage"
+                    class="hidden bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm"
+                >
+                    حدث خطأ أثناء إرسال الطلب. من فضلك حاول مرة أخرى.
+                </div>
+
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    id="submitButton"
+                    class="w-full bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    إرسال طلب التبرع
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const requestForm = document.getElementById("requestForm");
+        const successMessage = document.getElementById("successMessage");
+        const errorMessage = document.getElementById("errorMessage");
+        const submitButton = document.getElementById("submitButton");
+
+
+        requestForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            successMessage.classList.add("hidden");
+            errorMessage.classList.add("hidden");
+
+            submitButton.disabled = true;
+            submitButton.textContent = "جاري إرسال الطلب...";
+
+
+            const requestData = {
+                patient_name: document.getElementById("patient_name").value.trim(),
+                hospital: document.getElementById("hospital").value.trim(),
+                companion_phone: document.getElementById("companion_phone").value.trim(),
+                patient_age: Number(document.getElementById("patient_age").value),
+                blood_type: document.getElementById("blood_type").value,
+                notes: document.getElementById("notes").value.trim()
+            };
+
+
+            try {
+
+                const response = await fetch("/api/requests", {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(requestData)
+                });
+
+
+                if (!response.ok) {
+                    throw new Error("Failed to submit request");
+                }
+
+
+                // Show success message
+                successMessage.classList.remove("hidden");
+
+
+                // Clear form
+                requestForm.reset();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                errorMessage.classList.remove("hidden");
+
+            } finally {
+
+                submitButton.disabled = false;
+                submitButton.textContent = "إرسال طلب التبرع";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

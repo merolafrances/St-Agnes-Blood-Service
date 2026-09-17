@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل دخول الخدام</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+    
+    <div class="max-w-5xl mx-auto">
+        <!-- الهيدر والزرار للرجوع -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 flex items-center">
+                <span class="bg-gray-200 p-2 rounded-lg ml-3">🔒</span>
+                سجل دخول الخدام
+            </h1>
+            <a href="/admin-panel" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 font-bold shadow-md transition-colors">
+                الرجوع للوحة التحكم
+            </a>
+        </div>
+
+        <!-- الجدول -->
+        <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8 border-t-4 border-gray-800">
+            <div class="overflow-x-auto">
+                <table class="w-full text-right text-sm">
+                    <thead class="bg-gray-100 text-gray-600">
+                        <tr>
+                            <th class="px-6 py-4 font-semibold rounded-r-2xl w-1/2 text-lg">اسم الخادم</th>
+                            <th class="px-6 py-4 font-semibold rounded-l-2xl w-1/2 text-lg">وقت وتاريخ الدخول</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-tbody" class="divide-y divide-gray-100">
+                        <!-- البيانات هتنزل هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchLoginLogs() {
+            try {
+                const response = await fetch('/login_logs');
+                const data = await response.json();
+                const logs = data.data || data; 
+                
+                const tbody = document.getElementById("logs-tbody");
+                tbody.innerHTML = "";
+
+                if (!logs || logs.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="2" class="px-6 py-8 text-center text-gray-400 text-lg">لا يوجد أي سجلات دخول حتى الآن</td></tr>`;
+                    return;
+                }
+
+                logs.forEach(log => {
+                    const dateObj = new Date(log.login_time + 'Z'); 
+                    const formattedTime = dateObj.toLocaleString('ar-EG', { 
+                        year: 'numeric', month: 'short', day: 'numeric', 
+                        hour: '2-digit', minute: '2-digit' 
+                    });
+
+                    const tr = document.createElement("tr");
+                    tr.className = "hover:bg-gray-50 transition-colors duration-150";
+                    tr.innerHTML = `
+                        <td class="px-6 py-4 font-bold text-gray-800 text-lg">${log.username}</td>
+                        <td class="px-6 py-4 text-gray-500 font-mono text-base" dir="ltr">${formattedTime}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error("Error fetching logs:", error);
+            }
+        }
+        fetchLoginLogs();
+    </script>
+</body>
+</html>
